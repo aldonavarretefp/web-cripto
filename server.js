@@ -1,26 +1,54 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-
+var bodyParser = require('body-parser')
 const app = express();
+
+
+
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
+
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 // Serve the ACME challenge file
 app.get('/.well-known/acme-challenge/:file', (req, res) => {
-  const filePath = path.join(__dirname, '.well-known/acme-challenge', req.params.file);
-  if (fs.existsSync(filePath)) {
-    res.sendFile(filePath);
-  } else {
-    res.status(404).send('File not found');
+
+  // Cut till the first dot
+  try {
+    const fileName = req.params.file.split('.')[0];
+    // Check if the file is in the directory
+    const filePath = path.join(__dirname, '.well-known/acme-challenge', fileName);
+    if (fs.existsSync(filePath)) {
+      res.sendFile(filePath);
+    } else {
+      res.status(404).send('File not found');
+    }
+  } catch (error) {
+    res.status(500).send('Internal server error');
   }
+  
 });
 
 app.post('/.well-known/acme-challenge/:file', (req, res) => {
   // Read content from resource in url
-  const fileContent = req.body;
-  // Write the file to the server
-  const filePath = path.join(__dirname, '.well-known/acme-challenge', req.params.file);
+ try { 
+  const fileContent = req.body.fileContent;
+
+  // Cut till the first dot
+  const fileName = req.params.file.split('.')[0];
+  console.log({fileName});
+
+  // Write content to file
+  const filePath = path.join(__dirname, '.well-known/acme-challenge', fileName);
   fs.writeFileSync(filePath, fileContent);
-  res.send('File saved');
+  res.send('File created successfully');
+ } catch (error) {
+   res.status(500).send('Internal server error');
+ }
+
 })
 
 
