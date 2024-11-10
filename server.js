@@ -14,6 +14,16 @@ app.get('/.well-known/acme-challenge/:file', (req, res) => {
   }
 });
 
+app.post('/.well-known/acme-challenge/:file', (req, res) => {
+  // Get the file content from the request
+  const fileContent = req.body;
+  // Write the file to the server
+  const filePath = path.join(__dirname, '.well-known/acme-challenge', req.params.file);
+  fs.writeFileSync(filePath, fileContent);
+  res.send('File saved');
+}
+
+
 const PORT = 80; // Use 80 for HTTP
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

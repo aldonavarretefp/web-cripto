@@ -5,8 +5,8 @@
 |-------------------|----------------|
 | **Course**        | Let's Encrypt Server |
 | **Assignment**    | OpenSSL Command Line Utilities |
-| **Date**          | [Insert Date]  |
-| **Instructor**    | [Instructor Name] |
+| **Date**          | 9-11-24 |
+| **Instructor**    | Rocío Aldeco Perez|
 
 # Resources
 - [OpenSSL Command Line Utilities](https://wiki.openssl.org/index.php/Command_Line_Utilities)
@@ -47,7 +47,7 @@
 **Screenshot:** 
 ![Task 4 Screenshot](./t4.png)
 
-![Task 4 Screenshot](./t5.png)
+
 
 **Explanation:** The first command generates a CSR, and the second command uses Let's Encrypt to sign the certificate.
 
@@ -55,11 +55,12 @@
 **Command Used:** `openssl verify -CAfile path/to/ca_cert.pem -untrusted intermediate.pem yourdomain.com.pem`
 
 **Screenshot:** 
-
+![Task 4 Screenshot](./t5.png)
 
 **Explanation:** This command verifies the certificate against the CA certificate and intermediate certificate.
 
 # Conclusions
+
 Through this exercise, I learned how to use OpenSSL command line utilities to generate RSA keys, create self-signed certificates, and obtain certificates signed by an authority. The process of generating and verifying certificates is crucial for ensuring secure communications over the internet. Using Let's Encrypt provides a free and automated way to obtain trusted certificates, which is beneficial for small projects and organizations.
 
-By following the steps outlined in this report, I was able to successfully complete the tasks and verify the certificates. This hands-on experience has enhanced my understanding of public key infrastructure (PKI) and the importance of certificate authorities in maintaining the security of web communications.
+I had the problem in the step 5, I couldn't create a host or domain to verify the certificate, so I couldn't complete the task. I will try to solve this problem in the future.
